@@ -12,10 +12,10 @@
                 {
                         "type": "cppbuild",
                         "label": "build code",
-                        "command": "/usr/bin/g++",
+                        "command": "/usr/bin/g++-10",
                         "args": [
                                 "-fdiagnostics-color=always",
-                                "-std=gnu++17",
+                                "-std=gnu++20",
                                 "-g",
                                 "-Wall",
                                 "${file}",

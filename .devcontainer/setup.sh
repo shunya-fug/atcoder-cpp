@@ -14,7 +14,3 @@ pip3 install online-judge-template-generator
 	wget https://github.com/atcoder/ac-library/releases/download/v1.4/ac-library.zip && \
 	unzip ac-library.zip -d ac-library && \
 	rm ac-library.zip)
-
-# boostのインストール
-sudo apt update
-sudo apt install -y libboost-dev

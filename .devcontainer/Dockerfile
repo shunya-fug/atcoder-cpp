@@ -22,4 +22,6 @@ COPY .config/online-judge-tools /home/vscode/online-judge-tools
 
 # [Optional] Uncomment this section to install additional packages.
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get -y install --no-install-recommends lv vim
+    && apt-get -y install --no-install-recommends lv vim \
+    && apt-get -y install g++-10 \
+    && apt-get -y install libboost-dev
