@@ -13,10 +13,10 @@ int64_t solve(auto H, auto W, std::vector<std::vector<char>> &cookies)
         vector<int> remove_row, remove_col;
 
         // 1. 各行に対して次の操作を行う : その行に 2 枚以上のクッキーが残っており、それらの色がすべて同じならば、それらに印をつける。
-        REP(i, H)
+        REP(i, cookies.size())
         {
             if (cookies[i].size() < 2)
-                continue;
+                break;
 
             bool same = true;
             char c = cookies[i][0];
@@ -36,10 +36,10 @@ int64_t solve(auto H, auto W, std::vector<std::vector<char>> &cookies)
         }
 
         // 2. 各列に対して次の操作を行う : その列に 2 枚以上のクッキーが残っており、それらの色がすべて同じならば、それらに印をつける。
-        REP(j, W)
+        REP(j, cookies[0].size())
         {
             if (cookies.size() < 2)
-                continue;
+                break;
 
             bool same = true;
             char c = cookies[0][j];
@@ -58,7 +58,7 @@ int64_t solve(auto H, auto W, std::vector<std::vector<char>> &cookies)
             }
         }
 
-        if (remove_row.size() == 0 && remove_col.size() == 0)
+        if (remove_row.empty() && remove_col.empty())
         {
             break;
         }
@@ -68,11 +68,11 @@ int64_t solve(auto H, auto W, std::vector<std::vector<char>> &cookies)
             cookies.erase(cookies.begin() + remove_row[i]);
         }
 
-        for (auto j : remove_col)
+        REP_R(j, remove_col.size())
         {
             REP(i, cookies.size())
             {
-                cookies[i].erase(cookies[i].begin() + j);
+                cookies[i].erase(cookies[i].begin() + remove_col[j]);
             }
         }
     };
