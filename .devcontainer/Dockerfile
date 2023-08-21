@@ -25,3 +25,6 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends lv vim \
     && apt-get -y install g++-10 \
     && apt-get -y install libboost-dev
+
+RUN apt update \
+    && apt -y install libeigen3-dev
