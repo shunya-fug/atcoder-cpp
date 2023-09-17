@@ -44,21 +44,16 @@ int64_t solve(int M, const std::vector<string> &s)
                               { return n == -1; }))
                 {
                     t++;
-                    if (pushed[p[0]] == -1 and s[p[0]][t % M] == ci)
+                    REP(j, 3)
                     {
-                        pushed[p[0]] = t;
-                        continue;
+                        if (pushed[p[j]] == -1 and s[p[j]][t % M] == ci)
+                        {
+                            pushed[p[j]] = t;
+                            goto NEXT_LOOP;
+                        }
                     }
-                    if (pushed[p[1]] == -1 and s[p[1]][t % M] == ci)
-                    {
-                        pushed[p[1]] = t;
-                        continue;
-                    }
-                    if (pushed[p[2]] == -1 and s[p[2]][t % M] == ci)
-                    {
-                        pushed[p[2]] = t;
-                        continue;
-                    }
+                NEXT_LOOP:
+                    continue;
                 }
                 ans = min(ans, t);
             } while (next_permutation(ALL(p)));
