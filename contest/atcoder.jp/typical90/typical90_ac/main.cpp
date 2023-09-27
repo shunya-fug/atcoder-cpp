@@ -6,17 +6,29 @@
 #define ALL(x) ::std::begin(x), ::std::end(x)
 using namespace std;
 
-vector<int64_t> solve(int64_t W, int64_t N, const std::vector<int64_t> &L, const std::vector<int64_t> &R)
+vector<int64_t> solve(int64_t W, int64_t N, std::vector<int64_t> &L, std::vector<int64_t> &R)
 {
-    vector<int64_t> heights(W + 1, 0), ans(N);
+    // 座標圧縮
+    vector<int64_t> compression;
+    REP(i, N)
+    {
+        compression.push_back(L[i]);
+        compression.push_back(R[i]);
+    }
+    ranges::sort(compression);
+    compression.erase(unique(ALL(compression)), end(compression));
+    REP(i, N)
+    {
+        L[i] = ranges::lower_bound(compression, L[i]) - begin(compression);
+        R[i] = ranges::lower_bound(compression, R[i]) - begin(compression);
+    }
+
+    vector<int64_t> heights(compression.size(), 0), ans(N);
     REP(i, N)
     {
         auto h = *max_element(begin(heights) + L[i], begin(heights) + R[i] + 1) + 1;
+        fill(begin(heights) + L[i], begin(heights) + R[i] + 1, h);
         ans[i] = h;
-        for (auto j = L[i]; j <= R[i]; j++)
-        {
-            heights[j] = h;
-        }
     }
     return ans;
 }
