@@ -5,6 +5,17 @@
 #define REP3R(i, m, n) for (int i = (int)(n)-1; (i) >= (int)(m); --(i))
 #define ALL(x) ::std::begin(x), ::std::end(x)
 using namespace std;
+#include <atcoder/lazysegtree.hpp>
+
+// 遅延評価セグメント木
+using S = int64_t;
+using F = int64_t;
+S op(S l, S r) { return max(l, r); }
+S e() { return 0; }
+S mapping(F l, S r) { return max(l, r); }
+F composition(F l, F r) { return max(l, r); }
+F id() { return 0; }
+using lazy_segtree = atcoder::lazy_segtree<S, op, e, F, mapping, composition, id>;
 
 vector<int64_t> solve(int64_t W, int64_t N, std::vector<int64_t> &L, std::vector<int64_t> &R)
 {
@@ -23,11 +34,12 @@ vector<int64_t> solve(int64_t W, int64_t N, std::vector<int64_t> &L, std::vector
         R[i] = ranges::lower_bound(compression, R[i]) - begin(compression);
     }
 
-    vector<int64_t> heights(compression.size(), 0), ans(N);
+    vector<int64_t> ans(N);
+    lazy_segtree heights(compression.size());
     REP(i, N)
     {
-        auto h = *max_element(begin(heights) + L[i], begin(heights) + R[i] + 1) + 1;
-        fill(begin(heights) + L[i], begin(heights) + R[i] + 1, h);
+        auto h = heights.prod(L[i], R[i] + 1) + 1;
+        heights.apply(L[i], R[i] + 1, h);
         ans[i] = h;
     }
     return ans;
