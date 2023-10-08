@@ -6,11 +6,10 @@
 #define ALL(x) ::std::begin(x), ::std::end(x)
 using namespace std;
 
+const int dist[] = {3, 1, 4, 1, 5, 9};
 int64_t solve(char p, char q)
 {
-    int dist[] = {3, 1, 4, 1, 5, 9};
-    auto l = min(dist + (p - 'A'), dist + (q - 'A')),
-         r = max(dist + (p - 'A'), dist + (q - 'A'));
+    auto [l, r] = minmax({dist + (p - 'A'), dist + (q - 'A')});
     return reduce(l, r);
 }
 
